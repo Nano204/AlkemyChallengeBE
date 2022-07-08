@@ -17,7 +17,7 @@ El segundo propósito de este proyecto es construir un código generíco a cerca
 
 A continuación presento cual fue el orden de creación de cada uno de los archivos para que sirva cómo guía para la lectura del código y asi se permita llevar un proceso de pensamiento hilado que facilita la comprensión del mismo:
 
-**1.** index.js <br />
+**1.** index.js + server.js <br />
 **2.** db/index.js <br />
 **3.** test/. <br />
 **4.** db/models/. <br />
