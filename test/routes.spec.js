@@ -20,21 +20,129 @@ describe("Models testing", () => {
   //I'll create a describe for every model and a new sub-describe for grouping methods in each model
 
   describe("Characters routes - /characters", () => {
-    describe("Method POST", () => {});
+    describe("Method POST", () => {
+      it("should return an error if at least one of the mandatory parameters is not send", async () => {
+        const res = await request(server).post("/character");
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe(
+          "Character information does not fit the basic requeriments"
+        );
+      });
+
+      it("should return error if the character creation fails because of a data type", async () => {
+        const res = await request(server).post("/character").send({
+          image: "./img/Mickey_Mouse.jpeg",
+          name: "Mickey Mouse",
+          age: "NOVENTA",
+          weight: 13,
+          history:
+            "This is the main character of Disney, he is the biggest inspiration of Walt.",
+        });
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe("One element does not meet requiered type");
+      });
+
+      it("should return character object if the character was succesfully created", async () => {
+        const res = await request(server).post("/character").send({
+          image: "./img/Mickey_Mouse.jpeg",
+          name: "Mickey Mouse",
+          age: 93,
+          weight: 13,
+          history:
+            "This is the main character of Disney, he is the biggest inspiration of Walt.",
+        });
+        expect(res.statusCode).toBe(201);
+        expect(res.body).toEqual({
+          image: "./img/Mickey_Mouse.jpeg",
+          name: "Mickey Mouse",
+          age: 93,
+          weight: 13,
+          history:
+            "This is the main character of Disney, he is the biggest inspiration of Walt.",
+        });
+      });
+    });
     describe("Method GET", () => {});
     describe("Method PUT", () => {});
     describe("Method REMOVE", () => {});
   });
 
   describe("Medias routes - /medias", () => {
-    describe("Method POST", () => {});
+    describe("Method POST", () => {
+      it("should return an error if at least one of the mandatory parameters is not send", async () => {
+        const res = await request(server).post("/medias");
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe(
+          "Media information does not fit the basic requeriments"
+        );
+      });
+
+      it("should return error if the media creation fails because of a data type", async () => {
+        const res = await request(server).post("/medias").send({
+          image: "./img/Mickey_Mouse_TheOrigins.jpeg",
+          title: "Mickey Mouse: The Origins",
+          creation_date: "2019-03-21",
+          rate: 8,
+          mediaType: "Movie",
+        });
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe("One element does not meet requiered type");
+      });
+
+      it("should return character object if the media was succesfully created", async () => {
+        const res = await request(server).post("/medias").send({
+          image: "./img/Mickey_Mouse_TheOrigins.jpeg",
+          title: "Mickey Mouse: The Origins",
+          creation_date: "2019-03-21",
+          rate: 5,
+          mediaType: "Movie",
+        });
+        expect(res.statusCode).toBe(201);
+        expect(res.body).toEqual({
+          image: "./img/Mickey_Mouse_TheOrigins.jpeg",
+          title: "Mickey Mouse: The Origins",
+          creation_date: "2019-03-21",
+          rate: 5,
+          mediaType: "Movie",
+        });
+      });
+    });
     describe("Method GET", () => {});
     describe("Method PUT", () => {});
     describe("Method REMOVE", () => {});
   });
 
   describe("Genres routes - /genres", () => {
-    describe("Method POST", () => {});
+    describe("Method POST", () => {
+      it("should return an error if at least one of the mandatory parameters is not send", async () => {
+        const res = await request(server).post("/genres");
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe(
+          "Genre information does not fit the basic requeriments"
+        );
+      });
+
+      it("should return error if the genre creation fails because of a data type", async () => {
+        const res = await request(server).post("/genres").send({
+          image: "./img/Comedy.jpeg",
+          name: "Comedy",
+        });
+        expect(res.statusCode).toBe(404);
+        expect(res.text).toBe("One element does not meet requiered type");
+      });
+
+      it("should return genre object if the character was succesfully created", async () => {
+        const res = await request(server).post("/genres").send({
+          image: "./img/Comedy.jpeg",
+          name: "Comedy",
+        });
+        expect(res.statusCode).toBe(201);
+        expect(res.body).toEqual({
+          image: "./img/Comedy.jpeg",
+          name: "Comedy",
+        });
+      });
+    });
     describe("Method GET", () => {});
     describe("Method PUT", () => {});
     describe("Method REMOVE", () => {});
