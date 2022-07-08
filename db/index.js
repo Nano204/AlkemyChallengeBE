@@ -1,4 +1,4 @@
-//May install sequelize, pg y pg-hstore con npm i
+//May install sequelize, pg y pg-hstore with npm i
 //Require Sequelize and Op (Operators from Sequelize)
 const { Sequelize, Op } = require("sequelize");
 //Require models
@@ -17,7 +17,7 @@ const modelGenre = require("./models/Genre.js");
 // // // // // //To list databases use #\l
 // // // // // //To list tables use #\t
 const db = new Sequelize(
-  "postgres://nano:dbpass@localhost:5432/alkemyChallenge",
+  "postgres://nano:dbpass@localhost:5432/alkemychallenge",
   {
     logging: false,
   }

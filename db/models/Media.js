@@ -5,7 +5,7 @@ const { DataTypes } = require("sequelize");
 //Use sequelize as parameter so the model will use as argument the db you want to connect to sequalize
 module.exports = (sequelize) => {
   //Set the name of the model
-  sequelize.define("Character", {
+  sequelize.define("Media", {
     //Start to build the objects of the model
     image: {
       type: DataTypes.STRING,
