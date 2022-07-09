@@ -54,7 +54,7 @@ describe("Routes Testing - Method POST", () => {
     });
   });
 
-  describe("Medias routes - /medias", () => {
+  describe("Medias routes - /media", () => {
     let mediaOne;
     beforeEach(() => {
       mediaOne = {
@@ -67,7 +67,7 @@ describe("Routes Testing - Method POST", () => {
     });
 
     it("should return an error if at least one of the mandatory parameters is not send", async () => {
-      const res = await request(app).post("/medias");
+      const res = await request(app).post("/media");
       expect(res.statusCode).toBe(404);
       expect(res.text).toBe(
         "Media information does not fit the basic requeriments"
@@ -76,14 +76,14 @@ describe("Routes Testing - Method POST", () => {
 
     it("should return error if the media creation fails because of a data type", async () => {
       mediaOne.mediaType = "Short film";
-      const res = await request(app).post("/medias").send(mediaOne);
+      const res = await request(app).post("/media").send(mediaOne);
       expect(res.statusCode).toBe(404);
       expect(res.text).toBe("One element does not meet requiered type");
     });
 
     it("should return media object if the media was succesfully created", async () => {
       console.log(mediaOne);
-      const res = await request(app).post("/medias").send(mediaOne);
+      const res = await request(app).post("/media").send(mediaOne);
       expect(res.statusCode).toBe(201);
       expect(res.body).toEqual(mediaOne);
     });
@@ -123,7 +123,8 @@ describe("Routes Testing - Method POST", () => {
   });
 
   //Close de DB and force sync to clear it
-  afterAll(() => {
+  afterAll(async () => {
+    await db.sync({ force: true });
     db.close();
   });
 });

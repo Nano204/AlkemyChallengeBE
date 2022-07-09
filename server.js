@@ -9,7 +9,7 @@ const genreMiddleware = require("./middlewares/genreMiddleware.js");
 //Call middlewares
 server.use(express.json());
 server.use("/characters", characterMiddleware);
-server.use("/medias", mediaMiddleware);
+server.use("/media", mediaMiddleware);
 server.use("/genres", genreMiddleware);
 
 //Define root calls
