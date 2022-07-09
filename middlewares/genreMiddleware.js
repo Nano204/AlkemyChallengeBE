@@ -6,6 +6,10 @@ const { Genre } = require("../db");
 
 //Create methods
 
+//Method Get
+
+
+//Method Post
 router.post("/", async (req, res) => {
   const { name } = req.body;
   if (!name) {

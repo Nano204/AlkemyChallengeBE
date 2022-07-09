@@ -6,6 +6,7 @@ const { Media } = require("../db");
 
 //Create methods
 
+//Method POST
 router.post("/", async (req, res) => {
   const { title, mediaType } = req.body;
   if (!(title && mediaType)) {

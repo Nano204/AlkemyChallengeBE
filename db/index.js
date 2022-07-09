@@ -34,7 +34,7 @@ modelMedia(db);
 const { Character, Media, Genre } = db.models;
 
 Genre.hasMany(Media);
-
+Media.belongsTo(Genre);
 Character.belongsToMany(Media, { through: "Character_Media" });
 Media.belongsToMany(Character, { through: "Character_Media" });
 

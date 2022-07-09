@@ -88,8 +88,6 @@ describe("Routes Testing - Method GET", () => {
       Media.create(mediaThree),
       Media.create(mediaFour),
     ]);
-    //Connect characters and media
-    console.log(charDB1);
 
     //Create genre objects
     const genreOne = { image: "./img1.jpeg", name: "Genre1" };
@@ -103,16 +101,14 @@ describe("Routes Testing - Method GET", () => {
       charDB4.setMedia(mediaDB1, mediaDB4),
       mediaDB1.createGenre(genreOne),
       mediaDB2.createGenre(genreTwo),
-      mediaDB3.setGenre(genreOne),
-      mediaDB4.setGenre(genreTwo),
+      // mediaDB3.setGenre(1),
+      // mediaDB4.setGenre(2),
     ]);
   });
 
   //I wont' comment every test because it has it's own description in it's string
   //I'll create a describe for every model and a new sub-describe for grouping methods in each model
-  xdescribe("Characters routes - /characters", () => {
-    let characterOne;
-
+  describe("Characters routes - /characters", () => {
     it("should return images and names at /characters", async () => {
       const res = await request(app).get("/characters");
       expect(res.statusCode).toBe(200);
@@ -125,9 +121,16 @@ describe("Routes Testing - Method GET", () => {
     });
 
     it("should return a character detail is send by query at /characters?name=name", async () => {
+      const characterOne = {
+        image: "./img1.jpg",
+        name: "Char1",
+        age: 10,
+        weight: 10,
+        history: "C1 history",
+      };
       const res = await request(app).get("/characters?name=Char1");
       expect(res.statusCode).toBe(200);
-      expect(res.body).toEqual([expect.objectContaining(characterOne)]);
+      expect(res.body).toEqual(expect.objectContaining(characterOne));
     });
 
     it("should filter characters by age if send by query at /characters?age=age", async () => {
@@ -144,9 +147,10 @@ describe("Routes Testing - Method GET", () => {
       const res = await request(app).get("/characters?media=Media1");
       expect(res.statusCode).toBe(200);
       expect(res.body).toEqual([
-        { image: "./img1.jpg", name: "Char1" },
-        { image: "./img4.jpg", name: "Char4" },
+        expect.objectContaining({ image: "./img1.jpg", name: "Char1" }),
+        expect.objectContaining({ image: "./img4.jpg", name: "Char4" }),
       ]);
+      // expect(res.body[0]).toHaveProperty("Media");
     });
   });
 
