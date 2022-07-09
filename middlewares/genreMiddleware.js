@@ -6,8 +6,18 @@ const { Genre } = require("../db");
 
 //Create methods
 
-//Method Get
-
+//Method GET
+router.get("/", async (req, res) => {
+  try {
+    //If no name, age or media was sent by query ignore info after /
+    const genres = await Genre.findAll();
+    return genres.length
+      ? res.json(genres)
+      : res.status(404).send("No media found");
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+});
 
 //Method Post
 router.post("/", async (req, res) => {
@@ -15,13 +25,13 @@ router.post("/", async (req, res) => {
   if (!name) {
     return res
       .status(404)
-      .send("Genre information does not fit the basic requeriments");
+      .send("Must send name of genre for creation");
   }
   try {
     const newGenre = await Genre.create(req.body);
     return res.status(201).send(req.body);
   } catch {
-    return res.status(404).send("One element does not meet requiered type");
+    return res.status(404).send("Parameter invalid data type");
   }
 });
 

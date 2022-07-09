@@ -100,10 +100,8 @@ describe("Routes Testing - Method GET", () => {
       charDB3.setMedia(mediaDB3, mediaDB4),
       charDB4.setMedia(mediaDB1, mediaDB4),
       mediaDB1.createGenre(genreOne),
-      mediaDB2.createGenre(genreTwo),
-      // mediaDB3.setGenre(1),
-      // mediaDB4.setGenre(2),
     ]);
+    await mediaDB3.setGenre(1);
   });
 
   //I wont' comment every test because it has it's own description in it's string
@@ -154,55 +152,66 @@ describe("Routes Testing - Method GET", () => {
     });
   });
 
-  xdescribe("Medias routes - /media", () => {
+  describe("Medias routes - /media", () => {
     it("should return just image, title and creation date values", async () => {
       const res = await request(app).get("/media");
       expect(res.statusCode).toBe(200);
-      expect(res.body).toEqual([
-        {
-          image: "./img1.jpeg",
-          title: "Media1",
-          creation_date: "1999-01-01",
-        },
-        {
-          image: "./img2.jpeg",
-          title: "Media2",
-          creation_date: "1999-01-01",
-        },
-        {
-          image: "./img3.jpeg",
-          title: "Media3",
-          creation_date: "1999-01-01",
-        },
-        {
-          image: "./img4.jpeg",
-          title: "Media4",
-          creation_date: "1999-01-01",
-        },
-      ]);
+      expect(res.body).toEqual(
+        expect.arrayContaining([
+          {
+            image: "./img1.jpeg",
+            title: "Media1",
+            creation_date: "1999-01-01",
+          },
+          {
+            image: "./img2.jpeg",
+            title: "Media2",
+            creation_date: "1999-01-01",
+          },
+          {
+            image: "./img3.jpeg",
+            title: "Media3",
+            creation_date: "1999-01-01",
+          },
+          {
+            image: "./img4.jpeg",
+            title: "Media4",
+            creation_date: "1999-01-01",
+          },
+        ])
+      );
     });
 
     it("should return a media filtered if send by query at /media?name=name", async () => {
+      const mediaOne = {
+        image: "./img1.jpeg",
+        title: "Media1",
+        creation_date: "1999-01-01",
+        rate: 5,
+        mediaType: "Movie",
+      };
       const res = await request(app).get("/media?name=Media1");
       expect(res.statusCode).toBe(200);
-      expect(res.body).toEqual([expect.objectContaining(mediaOne)]);
+      expect(res.body).toEqual(expect.objectContaining(mediaOne));
     });
 
     it("should return a media filtered if send by query at /media?genre=idGenre", async () => {
       const res = await request(app).get("/media?genre=1");
       expect(res.statusCode).toBe(200);
-      expect(res.body).toEqual([
-        {
-          image: "./img1.jpeg",
-          title: "Media1",
-          creation_date: "1999-01-01",
-        },
-        {
-          image: "./img3.jpeg",
-          title: "Media3",
-          creation_date: "1999-01-01",
-        },
-      ]);
+      expect(res.body).toEqual(
+        expect.arrayContaining([
+          {
+            image: "./img1.jpeg",
+            title: "Media1",
+            creation_date: "1999-01-01",
+          },
+          {
+            image: "./img3.jpeg",
+            title: "Media3",
+            creation_date: "1999-01-01",
+          },
+        ])
+      );
     });
 
     it("should return a media ordered by name if send by query at /media?order= DESC | ASC", async () => {
