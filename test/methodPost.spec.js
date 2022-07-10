@@ -9,7 +9,6 @@ const request = require("supertest");
 const app = require("../server.js");
 //Require the db and the models that we will test
 const { db, Character, Genre, Media } = require("../db");
-const { disabled } = require("../server.js");
 
 describe("Routes Testing - Method POST", () => {
   //First we call the beforeAll method to clean the DB before testing adding a force sync

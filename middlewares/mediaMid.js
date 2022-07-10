@@ -1,6 +1,10 @@
 //Requiere Express to use it as Router inside the Middleware
 const { Router } = require("express");
 const router = Router();
+
+//Requiere isAuthenticated from server to grant or deny permissions
+ 
+
 //Requiere the model that we will use to connect the DB
 const { Media, Genre, Character } = require("../db");
 

@@ -1,13 +1,26 @@
 //Requiere Express to use it as Router inside the Middleware
 const { Router } = require("express");
 const router = Router();
+
+//Requiere isAuthenticated from server to grant or deny permissions
+// const { isAuthenticated } = require("./authentication");
+
 //Requiere the model that we will use to connect the DB
 const { Character, Media, Op } = require("../db");
 
 //Create methods
 
 //Method GET
-router.get("/", async (req, res) => {
+//We will separete the method GET into paramaters needed and no parameters, so we will use next() command
+//For this we well send next as parameter to the route
+
+// router.get("/", async (req, res, next) => {
+//   console.log("characters: ", isAuthenticated);
+//   return res.json(isAuthenticated);
+// });
+
+//At first we create the route for aprameters needed
+router.get("/", async (req, res, next) => {
   try {
     const { name, age, media } = req.query;
 
@@ -52,15 +65,19 @@ router.get("/", async (req, res) => {
         ? res.json(allCharacters)
         : res.status(404).send("No characters found");
     }
-
-    //If no name, age or media was sent by query ignore info after /
-    const allCharacters = await Character.findAll({
-      attributes: ["image", "name"],
-    });
-    return res.json(allCharacters);
+    //We use next to tell route it has not finish and go to next posible route where we use the GET method for no parameters
+    next();
   } catch (error) {
     return res.status(500).json({ error });
   }
+});
+
+//If no name, age or media was sent by query ignore info after /
+router.get("/", async (req, res) => {
+  const allCharacters = await Character.findAll({
+    attributes: ["image", "name"],
+  });
+  return res.json(allCharacters);
 });
 
 //Method POST
@@ -100,7 +117,6 @@ router.put("/", async (req, res) => {
       });
       character.addMedia(newMedia);
     }
-
     character.save().then(
       () => {
         return res.status(201).send(`${name} has been updated`);
@@ -124,7 +140,6 @@ router.delete("/", async (req, res) => {
   }
   try {
     const character = await Character.findOne({ where: { name } });
-
     return character
       ? (await Character.destroy({ where: { name } }),
         res.status(200).send(`The character ${name} was delete`))
