@@ -17,7 +17,7 @@ const users = [
 //Create some middleware funtions to validate authentication
 const isAuthenticated = (req, res, next) => {
   let useAuthetication;
-  useAuthetication = true; //Comment this line to make tests work
+  // useAuthetication = true; //Comment this line to make tests work
   useAuthetication
     ? req.cookies.userId
       ? next()
