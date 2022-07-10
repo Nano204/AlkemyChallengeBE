@@ -31,8 +31,26 @@ const isNotAuthenticated = (req, res, next) => {
     : next();
 };
 
-//Now we can set the methods
+//Settig the maling response for people who register
+//Requiere dotenv to be able to use .env variables by the process.env
+//To install use npm i --save dotenv
+require("dotenv").config();
+//Use sendgrid to send mails. To install use npm i --save sendgrid-mail
+const mailService = require("@sendgrid/mail");
+const mail = require("@sendgrid/mail");
+//Connect the API
+mailService.setApiKey(process.env.SG_APIKEY);
+const sendMail = async (mailContent) => {
+  try {
+    console.log(mailContent);
+    await mailService.send(mailContent);
+    console.log(`Message sent succesfully to ${mailContent.to}`);
+  } catch (error) {
+    console.log(error.code);
+  }
+};
 
+//Now we can set the methods
 //Method for register and create an account
 router.post("/register", isNotAuthenticated, (req, res) => {
   //Get email and password from body
@@ -49,6 +67,12 @@ router.post("/register", isNotAuthenticated, (req, res) => {
   //If user was set then push it in the array and show success if don't sent status 401
   user
     ? (users.push(user),
+      sendMail({
+        to: email,
+        from: process.env.EMAIL,
+        subject: "Cuenta registrada",
+        text: "Gracias por sumarse a nuestra aplicacion. Puede usar los endpoints libremente",
+      }),
       res.send(`User ${user.name} was successfully registered`))
     : res.status(401).send("Invalid data for register");
 });

@@ -3,14 +3,14 @@ const { Router } = require("express");
 const router = Router();
 
 //Requiere isAuthenticated from server to grant or deny permissions
- 
+const { isAuthenticated } = require("./authentication");
 
 //Requiere the model that we will use to connect the DB
 const { Media, Genre, Character } = require("../db");
 
 //Create methods
 //Method GET
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
     const { name, genre, order } = req.query;
 
@@ -68,7 +68,7 @@ router.get("/", async (req, res) => {
 });
 
 //Method POST
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   const { title, mediaType, genre } = req.body;
   if (!(title && mediaType && genre)) {
     return res
@@ -90,7 +90,7 @@ router.post("/", async (req, res) => {
 });
 
 //Method PUT
-router.put("/", async (req, res) => {
+router.put("/", isAuthenticated, async (req, res) => {
   const { title, character } = req.body;
   if (!title) {
     return res
@@ -125,7 +125,7 @@ router.put("/", async (req, res) => {
 });
 
 //Method DELETE
-router.delete("/", async (req, res) => {
+router.delete("/", isAuthenticated, async (req, res) => {
   const { title } = req.body;
   if (!title) return res.send("Must include title to delete media");
   try {

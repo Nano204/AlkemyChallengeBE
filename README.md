@@ -21,7 +21,8 @@ A continuación presento cual fue el orden de creación de cada uno de los archi
 **2.** db/index.js <br />
 **3.** test/. (Usar el interruptor de la función "isAutheticated" en el middleware "authentication")<br />
 **4.** db/models/. <br />
-**5.** middlewares (CRUD)- Documentation here: `https://documenter.getpostman.com/view/21829383/UzJPMapD`
+**5.** middlewares (CRUD)- Documentation here: `https://documenter.getpostman.com/view/21829383/UzJPMapD`<br />
+**6.** mw/authetication <br />
 
 **Nota:** Mis test dejaron de funcionar cuando incluí la autenticación porque aun no sé cómo incluir enviar cookies desde el jest hacia los post y asi tener permanencia del usuario logueado. Para hacer funcionar los test puse un interruptor en la función isAuthenticated.
 
@@ -42,26 +43,28 @@ Mientras más completes, mayor puntaje obtendrás, pero puedes enviar la app has
 
 ## Requerimientos técnicos
 
-1.  Modelado de Base de Datos
+1.  Modelado de Base de Datos ✔️
 
-2.  Autenticación de Usuarios
+2.  Autenticación de Usuarios ✔️
 
-3.  Listado de Personajes
+3.  Listado de Personajes ✔️
 
-4.  Creación, Edición y Eliminación de Personajes (CRUD)
+4.  Creación, Edición y Eliminación de Personajes (CRUD) ✔️
 
-5.  Detalle de Personaje
+5.  Detalle de Personaje ✔️
 
-6.  Búsqueda de Personajes
+6.  Búsqueda de Personajes ✔️
 
-7.  Listado de Películas
+7.  Listado de Películas ✔️
 
-8.  Detalle de Película / Serie con sus personajes
+8.  Detalle de Película / Serie con sus personajes ✔️
 
-9.  Creación, Edición y Eliminación de Película / Serie
+9.  Creación, Edición y Eliminación de Película / Serie ✔️
 
-10. Búsqueda de Películas o Series
+10. Búsqueda de Películas o Series ✔️
 
-11. Envío de emails
+11. Envío de emails ✔️
+
+12. **Extra:** Testing ⚠️
 
 Para mas información pueden visitar `https://www.alkemy.org/`

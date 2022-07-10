@@ -3,7 +3,7 @@ const { Router } = require("express");
 const router = Router();
 
 //Requiere isAuthenticated from server to grant or deny permissions
-
+const { isAuthenticated } = require("./authentication");
 
 //Requiere the model that we will use to connect the DB
 const { Genre } = require("../db");
@@ -11,7 +11,7 @@ const { Genre } = require("../db");
 //Create methods
 
 //Method GET
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
     //If no name, age or media was sent by query ignore info after /
     const genres = await Genre.findAll();
@@ -24,12 +24,10 @@ router.get("/", async (req, res) => {
 });
 
 //Method Post
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   const { name } = req.body;
   if (!name) {
-    return res
-      .status(404)
-      .send("Must send name of genre for creation");
+    return res.status(404).send("Must send name of genre for creation");
   }
   try {
     const newGenre = await Genre.create(req.body);

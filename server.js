@@ -29,7 +29,6 @@ const genreMid = require("./mw/genreMid.js");
 //The first middleware we have to call is express.json() so we can be able to work with JSON format on POST and PUT methods
 server.use(express.json());
 //The second middleware we have to call is the authendication one, so it can probide the authentication to the user before it get to methods
-//We will alse need to create some validation middleware to use them to authorize the user
 server.use("/", authenticationMid);
 //Call middlewares
 server.use("/characters", characterMid);
