@@ -1,4 +1,4 @@
-# Información general | [English](https://github.com/Nano204/AlkemyChallengeBE/blob/main/README_English.md)
+# Información general | [English](https://github.com/Nano204/AlkemyChallengeBE/blob/main/README%20_English.md)
 
 ## Inteción
 
