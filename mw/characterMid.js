@@ -3,7 +3,7 @@ const { Router } = require("express");
 const router = Router();
 
 //Requiere isAuthenticated from server to grant or deny permissions
-// const { isAuthenticated } = require("./authentication");
+const { isAuthenticated } = require("./authentication");
 
 //Requiere the model that we will use to connect the DB
 const { Character, Media, Op } = require("../db");
@@ -14,13 +14,8 @@ const { Character, Media, Op } = require("../db");
 //We will separete the method GET into paramaters needed and no parameters, so we will use next() command
 //For this we well send next as parameter to the route
 
-// router.get("/", async (req, res, next) => {
-//   console.log("characters: ", isAuthenticated);
-//   return res.json(isAuthenticated);
-// });
-
 //At first we create the route for aprameters needed
-router.get("/", async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const { name, age, media } = req.query;
 
@@ -73,7 +68,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //If no name, age or media was sent by query ignore info after /
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   const allCharacters = await Character.findAll({
     attributes: ["image", "name"],
   });
@@ -81,7 +76,7 @@ router.get("/", async (req, res) => {
 });
 
 //Method POST
-router.post("/", async (req, res) => {
+router.post("/", isAuthenticated, async (req, res) => {
   const { name } = req.body;
   if (!name) {
     return res.status(400).send("Must send name to create a Character");
@@ -95,7 +90,7 @@ router.post("/", async (req, res) => {
 });
 
 //Method PUT
-router.put("/", async (req, res) => {
+router.put("/", isAuthenticated, async (req, res) => {
   const { name, media } = req.body;
   if (!name) {
     return res
@@ -131,7 +126,7 @@ router.put("/", async (req, res) => {
 });
 
 //Method REMOVE
-router.delete("/", async (req, res) => {
+router.delete("/", isAuthenticated, async (req, res) => {
   const { name } = req.body;
   if (!name) {
     return res

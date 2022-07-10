@@ -19,10 +19,12 @@ server.use(cookieparser()); //This is a miiddleware tha will be used in all dire
 server.use(express.urlencoded({ extended: true }));
 
 //Require middlewares
-const authenticationMid = require("./middlewares/authentication.js");
-const characterMid = require("./middlewares/characterMid.js");
-const mediaMid = require("./middlewares/mediaMid.js");
-const genreMid = require("./middlewares/genreMid.js");
+const {
+  router: authenticationMid,
+} = require("./mw/authentication.js");
+const characterMid = require("./mw/characterMid.js");
+const mediaMid = require("./mw/mediaMid.js");
+const genreMid = require("./mw/genreMid.js");
 
 //The first middleware we have to call is express.json() so we can be able to work with JSON format on POST and PUT methods
 server.use(express.json());

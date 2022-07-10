@@ -19,9 +19,11 @@ A continuación presento cual fue el orden de creación de cada uno de los archi
 
 **1.** index.js + server.js <br />
 **2.** db/index.js <br />
-**3.** test/. <br />
+**3.** test/. (Usar el interruptor de la función "isAutheticated" en el middleware "authentication")<br />
 **4.** db/models/. <br />
 **5.** middlewares (CRUD)- Documentation here: `https://documenter.getpostman.com/view/21829383/UzJPMapD`
+
+**Nota:** Mis test dejaron de funcionar cuando incluí la autenticación porque aun no sé cómo incluir enviar cookies desde el jest hacia los post y asi tener permanencia del usuario logueado. Para hacer funcionar los test puse un interruptor en la función isAuthenticated.
 
 # Alkemy Challenge Backend - NodeJS
 

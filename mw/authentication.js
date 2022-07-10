@@ -9,15 +9,32 @@ const users = [
 ];
 
 //We will use this middleware at first step so we can watch what is happening inside the cookies while we test the code
-router.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-});
+// router.use((req, res, next) => {
+//   console.log(req.cookies);
+//   next();
+// });
+
+//Create some middleware funtions to validate authentication
+const isAuthenticated = (req, res, next) => {
+  let useAuthetication;
+  useAuthetication = true; //Comment this line to make tests work
+  useAuthetication
+    ? req.cookies.userId
+      ? next()
+      : res.status(401).send("Not autheticated user. Please login or register")
+    : next();
+};
+
+const isNotAuthenticated = (req, res, next) => {
+  req.cookies.userId
+    ? res.status(200).send("Should be redirect to /home")
+    : next();
+};
 
 //Now we can set the methods
 
 //Method for register and create an account
-router.post("/register", (req, res) => {
+router.post("/register", isNotAuthenticated, (req, res) => {
   //Get email and password from body
   const { name, email, password } = req.body;
   //Validate if name, email and password were sent and there is no user with same email adress
@@ -37,7 +54,7 @@ router.post("/register", (req, res) => {
 });
 
 //Method for login if already have an account
-router.post("/login", (req, res) => {
+router.post("/login", isNotAuthenticated, (req, res) => {
   //Get email and password from body
   const { email, password } = req.body;
   //Validate if email and password were sent and set the user
@@ -54,16 +71,10 @@ router.post("/login", (req, res) => {
 });
 
 //Method for logout just clear the cookies we set at login
-router.post("/logout", (req, res) => {
+router.post("/logout", isAuthenticated, (req, res) => {
   res.clearCookie("userId");
+  res.send(`Bye bye`);
 });
 
-const isAuthenticated = (req, res, next) => {
-  req.cookies.userID
-    ? next()
-    : res.status(401).send("Not autheticated user. Please login or register");
-};
-
 //Exports the Middleware
-// exports.isAuthenticated = isAuthenticated;
-module.exports = router;
+module.exports = { router, isAuthenticated };
