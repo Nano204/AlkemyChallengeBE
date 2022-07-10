@@ -1,7 +1,7 @@
 //Requiere the server as the app
-const app = require("./server");
+const app = require("./src/server");
 //Require db
-const { db } = require("./db");
+const { db } = require("./src/db");
 //Define port for localhosting
 const PORT = 3000;
 

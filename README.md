@@ -1,8 +1,8 @@
-# Información general
+# Información general | [English](https://github.com/Nano204/AlkemyChallengeBE/blob/main/README_English.md)
 
 ## Inteción
 
-Este proyecto fue creado con dos intenciones princiaplmenteÑ
+Este proyecto fue creado con dos intenciones princiaplmente
 
 ### 1. Participar del challenge de Alkemy
 
@@ -10,7 +10,7 @@ Uno de los propósitos del poriyecto es particpar del challenge con el fin de ha
 
 ### 2. Crear una código guiado para otros programadores que esten interesados en aprender sobre Backend con NodeJs
 
-El segundo propósito de este proyecto es construir un código generíco a cerca de cómo montar un servidor local y conectarlo a aun BD de postgress, por lo que el código se encuentra completamente commentado para facilitar la lectura e indicar que hace cada uno de los bloques de código.
+El segundo propósito de este proyecto es construir un código generíco a cerca de cómo montar un servidor local y conectarlo a aun BD de postgress, por lo que el código se encuentra completamente commentado para facilitar la lectura e indicar que hace cada uno de los bloques de código.<br />
 **Todos los comentarios estan en ingles.**
 
 ## Orden de lectura
@@ -18,11 +18,11 @@ El segundo propósito de este proyecto es construir un código generíco a cerca
 A continuación presento cual fue el orden de creación de cada uno de los archivos para que sirva cómo guía para la lectura del código y asi se permita llevar un proceso de pensamiento hilado que facilita la comprensión del mismo:
 
 **1.** index.js + server.js <br />
-**2.** db/index.js <br />
-**3.** test/. (Usar el interruptor de la función "isAutheticated" en el middleware "authentication")<br />
-**4.** db/models/. <br />
-**5.** middlewares (CRUD)- Documentation here: `https://documenter.getpostman.com/view/21829383/UzJPMapD`<br />
-**6.** mw/authetication <br />
+**2.** src/db/index.js <br />
+**3.** src/test/. (Usar el interruptor de la función "isAutheticated" en el middleware "authentication")<br />
+**4.** src/db/models/. <br />
+**5.** src/middlewares (CRUD) - Documentación aqui: [Postman](https://documenter.getpostman.com/view/21829383/UzJPMapD)<br />
+**6.** src/mw/authetication <br />
 
 **Nota:** Mis test dejaron de funcionar cuando incluí la autenticación porque aun no sé cómo incluir enviar cookies desde el jest hacia los post y asi tener permanencia del usuario logueado. Para hacer funcionar los test puse un interruptor en la función isAuthenticated.
 
