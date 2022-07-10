@@ -41,7 +41,7 @@ Develop an API to explore the world of Disney, which will allow knowing and modi
 
 The more you complete, the higher your score, but you can submit the app to the stage you have it based on your current knowledge. Remember that the objective of the challenge is to understand your current level of knowledge.
 
-## Requerimientos técnicos
+## Technical requirements
 
 1.  Database Modeling ✔️
 
