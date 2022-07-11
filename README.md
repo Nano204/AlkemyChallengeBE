@@ -2,7 +2,7 @@
 
 ## Inteción
 
-Este proyecto fue creado con dos intenciones princiaplmente
+Este proyecto fue creado con dos intenciones princialmente
 
 ### 1. Participar del challenge de Alkemy
 
